@@ -41,7 +41,7 @@ public class GameLoop extends Thread {
 
     }
     public void updateGameStats() {
-        if (System.nanoTime() - lastGameStatsUpdate > 100000000) {
+        if (System.nanoTime() - lastGameStatsUpdate > 1000000) {
             space.plane.rotate(1);
 
             lastGameStatsUpdate = System.nanoTime();

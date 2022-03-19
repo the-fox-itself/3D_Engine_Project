@@ -5,14 +5,14 @@ public class Plane extends GameObject {
         distance = d;
         length = l;
         rotation = r;
-        while (rotation >= 90) {
+        while (rotation > 90) {
             rotation -= 90;
         }
     }
 
     public void rotate(double degrees) {
         rotation += degrees;
-        while (rotation >= 90) {
+        while (rotation > 90) {
             rotation -= 90;
         }
     }
