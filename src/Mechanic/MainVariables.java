@@ -15,5 +15,5 @@ public class MainVariables {
 
     public static Space space;
 
-    public static int scalePixelsPerMeter = 100;
+    public static int scalePixelsPerMeter = 150;
 }

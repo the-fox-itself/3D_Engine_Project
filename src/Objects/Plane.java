@@ -17,6 +17,10 @@ public class Plane extends GameObject {
         }
     }
 
+    public void further(double meters) {
+        distance += meters;
+    }
+
     public double distance;     //m
     public double length;       //m
     public double rotation;     //degrees
