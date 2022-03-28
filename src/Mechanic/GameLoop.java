@@ -38,13 +38,22 @@ public class GameLoop extends Thread {
     }
 
     public void handleInput() {
-
+        if (a && !d) {
+            space.camera.x -= 0.1;
+        } else if (d && !a) {
+            space.camera.x += 0.1;
+        }
+        if (w && !s) {
+            space.camera.y += 0.1;
+        } else if (s && !w) {
+            space.camera.y -= 0.1;
+        }
     }
     public void updateGameStats() {
-        if (System.nanoTime() - lastGameStatsUpdate > 1000000) {
-            space.plane.rotate(0.9);
-
-            lastGameStatsUpdate = System.nanoTime();
-        }
+//        if (System.nanoTime() - lastGameStatsUpdate > 1000000) {
+//            space.plane.rotate(0.6);
+//
+//            lastGameStatsUpdate = System.nanoTime();
+//        }
     }
 }

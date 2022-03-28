@@ -1,6 +1,6 @@
 package Mechanic;
 
-import Objects.Plane;
+import Objects.Camera;
 import Objects.Space;
 
 import javax.swing.*;
@@ -16,7 +16,15 @@ public class Mechanic {
         frame.setLayout(null);
         frame.setVisible(true);
 
-        space = new Space(new Plane(3, 1, 0));
+        frame.addKeyListener(new FrameKeyListener());
+        frame.addMouseListener(new FrameMouseListener());
+        frame.addMouseMotionListener(new FrameMouseMotionListener());
+        frame.addMouseWheelListener(new FrameMouseWheelListener());
+
+//        space = new Space(new Plane(3.5, 1, 0));
+        space = new Space(new Camera(0, 0, 0));
+        space.listOfPoints.add(new double[]{1, 0.5, 1});
+        space.listOfPoints.add(new double[]{-1, 0.5, 0});
 
         frame.add(space);
         space.setBounds(0, 0, (int) Math.pow(10, 6), (int) Math.pow(10, 6));
