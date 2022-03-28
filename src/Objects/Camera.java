@@ -25,7 +25,7 @@ public class Camera extends GameObject {
     public double y;    //m
     public double z;    //m
 
-    public double rx;   //degrees
-    public double ry;   //degrees
-    public double rz;   //degrees
+    public double rx;   //radians
+    public double ry;   //radians
+    public double rz;   //radians
 }

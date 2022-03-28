@@ -12,7 +12,7 @@ public class MainVariables {
     public static boolean stopGameLoop = false;
 
     public static JFrame frame = new JFrame();
-    public static Dimension frameSize = new Dimension(800, 800);
+    public static Dimension frameSize = new Dimension(1000, 1000);
 
     public static Space space;
 
@@ -27,6 +27,10 @@ public class MainVariables {
     public static boolean shift;
 
     public static Point mouseLocation;
+
+    public static double R(double d) {
+        return Math.toRadians(d);
+    }
 
     public static class FrameKeyListener implements KeyListener {
         @Override
@@ -79,6 +83,13 @@ public class MainVariables {
                 case 0x10:
                     if (!shift)
                         shift = true;
+                    break;
+                case 'i':
+                case 'I':
+                case 'ш':
+                case 'Ш':
+                    space.camera.rx = 0;
+                    space.camera.rz = 0;
                     break;
                 default:
                     System.out.println(e.getKeyChar());
@@ -173,14 +184,14 @@ public class MainVariables {
             double dy = e.getY() - mouseLocation.y;
             mouseLocation = e.getPoint();
 
-            space.camera.rz += dx/100;
-            space.camera.rx += dy/100;
+            space.camera.rz += dx/300;
+            space.camera.rx += dy/300;
             System.out.println(space.camera.rz + " " + space.camera.rx);
-            if (space.camera.rz > 2*Math.PI) {
-                space.camera.rz -= 2*Math.PI;
-            }
-            if (space.camera.rx > 2*Math.PI) {
-                space.camera.rx -= 2*Math.PI;
+
+            if (space.camera.rz >= R(360)) {
+                space.camera.rz -= R(360);
+            } else if (space.camera.rz <= -R(360)) {
+                space.camera.rz += R(360);
             }
         }
 

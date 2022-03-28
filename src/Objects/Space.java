@@ -61,6 +61,13 @@ public class Space extends JPanel {
 //            g.fillRect(frameSize.width/2+Xn1Old, frameSize.height/2-1+100, Xn3Old-Xn1Old, 2);
 
 
+        Camera camera = space.camera;
+        double cx = camera.x;
+        double cy = camera.y;
+        double cz = camera.z;
+        double rx = camera.rx;
+        double ry = camera.ry;
+        double rz = camera.rz;
 
         for (String point : listOfPoints) {
             String[] coordinates = point.split(":");
@@ -68,11 +75,37 @@ public class Space extends JPanel {
             double py = Double.parseDouble(coordinates[1]);
             double pz = Double.parseDouble(coordinates[2]);
 
-            int pxScreen = (int) (Math.toDegrees(Math.atan((px-camera.x)/(py-camera.y))-camera.rz)*frameSize.width/90);     //30 for human eye
-            int pyScreen = (int) (Math.toDegrees(Math.atan((pz-camera.z)/(py-camera.y))-camera.rx)*frameSize.height/90);
+            if (py-cy > 0) {
+                double a = Math.atan((px - cx) / (py - cy));
+                boolean a1Initialize = false;
+                double a1 = 0;
 
-            if (py-camera.y > 0)
-                g.fillOval(frame.getWidth()/2-2+pxScreen, frame.getHeight()/2-2+pyScreen, 4, 4);
+                if (rz >= a - R(90) && rz <= a + R(90)) {
+                    a1Initialize = true;
+                    a1 = rz - a;
+                } else if (rz >= a - R(450) && rz <= a - R(270)) {
+                    a1Initialize = true;
+                    a1 = rz + R(360) - a;
+                } else if (rz >= a + R(270) && rz <= a + R(360)) {
+                    a1Initialize = true;
+                    a1 = rz - R(360) - a;
+                }
+
+                double b = Math.atan((pz - cz) / (Math.sqrt(Math.pow(px - cx, 2) + Math.pow(py - cy, 2))));
+                boolean b1Initialize = false;
+                double b1 = 0;
+
+//            if () {
+//
+//            }
+
+
+                int pyScreen = (int) ((Math.atan((pz - cz) / (py - cy))) * frame.getHeight() / R(90));
+                if (a1Initialize) {
+                    int pxScreen = (int) (a1 * frame.getWidth() / R(90));     //30 for human eye
+                    g.fillOval(frame.getWidth() / 2 - 4 + pxScreen, frame.getHeight() / 2 - 4 + pyScreen, 8, 8);
+                }
+            }
         }
     }
 }
