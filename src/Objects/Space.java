@@ -17,7 +17,7 @@ public class Space extends JPanel {
 
     public Plane plane;
     public Camera camera;
-    public ArrayList<double[]> listOfPoints = new ArrayList<>();
+    public ArrayList<String> listOfPoints = new ArrayList<>();
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -62,15 +62,17 @@ public class Space extends JPanel {
 
 
 
-        for (double[] point : listOfPoints) {
-            double px = point[0];
-            double py = point[1];
-            double pz = point[2];
+        for (String point : listOfPoints) {
+            String[] coordinates = point.split(":");
+            double px = Double.parseDouble(coordinates[0]);
+            double py = Double.parseDouble(coordinates[1]);
+            double pz = Double.parseDouble(coordinates[2]);
 
-            int pxScreen = (int) (Math.toDegrees((Math.atan((px-camera.x)/(py-camera.y))-camera.rz))*frame.getWidth()/90);
-            int pyScreen = (int) (Math.toDegrees((Math.atan((pz-camera.z)/(py-camera.y))-camera.rx))*frame.getHeight()/90);
+            int pxScreen = (int) (Math.toDegrees(Math.atan((px-camera.x)/(py-camera.y))-camera.rz)*frameSize.width/90);     //30 for human eye
+            int pyScreen = (int) (Math.toDegrees(Math.atan((pz-camera.z)/(py-camera.y))-camera.rx)*frameSize.height/90);
 
-            g.fillOval(frame.getWidth()/2-2+pxScreen, frame.getHeight()/2-2+pyScreen, 4, 4);
+            if (py-camera.y > 0)
+                g.fillOval(frame.getWidth()/2-2+pxScreen, frame.getHeight()/2-2+pyScreen, 4, 4);
         }
     }
 }

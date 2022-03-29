@@ -22,6 +22,11 @@ public class MainVariables {
     public static boolean a;
     public static boolean s;
     public static boolean d;
+    public static boolean t;
+    public static boolean spacePressed;
+    public static boolean shift;
+
+    public static Point mouseLocation;
 
     public static class FrameKeyListener implements KeyListener {
         @Override
@@ -31,7 +36,7 @@ public class MainVariables {
 
         @Override
         public void keyPressed(KeyEvent e) {
-            switch (e.getKeyChar()) {
+            switch (e.getKeyCode()) {
                 case 'w':
                 case 'W':
                 case 'ц':
@@ -60,6 +65,21 @@ public class MainVariables {
                     if (!d)
                         d = true;
                     break;
+                case 'n':
+                case 'N':
+                case 'т':
+                case 'Т':
+                    if (!t)
+                        t = true;
+                    break;
+                case ' ':
+                    if (!spacePressed)
+                        spacePressed = true;
+                    break;
+                case 0x10:
+                    if (!shift)
+                        shift = true;
+                    break;
                 default:
                     System.out.println(e.getKeyChar());
                     break;
@@ -68,7 +88,7 @@ public class MainVariables {
 
         @Override
         public void keyReleased(KeyEvent e) {
-            switch (e.getKeyChar()) {
+            switch (e.getKeyCode()) {
                 case 'w':
                 case 'W':
                 case 'ц':
@@ -96,6 +116,21 @@ public class MainVariables {
                 case 'В':
                     if (d)
                         d = false;
+                    break;
+                case 'n':
+                case 'N':
+                case 'т':
+                case 'Т':
+                    if (t)
+                        t = false;
+                    break;
+                case ' ':
+                    if (spacePressed)
+                        spacePressed = false;
+                    break;
+                case 0x10:
+                    if (shift)
+                        shift = false;
                     break;
                 default:
                     System.out.println(e.getKeyChar());
@@ -134,12 +169,24 @@ public class MainVariables {
     public static class FrameMouseMotionListener implements MouseMotionListener {
         @Override
         public void mouseDragged(MouseEvent e) {
+            double dx = e.getX() - mouseLocation.x;
+            double dy = e.getY() - mouseLocation.y;
+            mouseLocation = e.getPoint();
 
+            space.camera.rz += dx/100;
+            space.camera.rx += dy/100;
+            System.out.println(space.camera.rz + " " + space.camera.rx);
+            if (space.camera.rz > 2*Math.PI) {
+                space.camera.rz -= 2*Math.PI;
+            }
+            if (space.camera.rx > 2*Math.PI) {
+                space.camera.rx -= 2*Math.PI;
+            }
         }
 
         @Override
         public void mouseMoved(MouseEvent e) {
-
+            mouseLocation = e.getPoint();
         }
     }
 
