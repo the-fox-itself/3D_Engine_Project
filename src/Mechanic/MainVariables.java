@@ -22,7 +22,13 @@ public class MainVariables {
     public static boolean a;
     public static boolean s;
     public static boolean d;
+
     public static boolean t;
+    public static boolean f;
+    public static boolean g;
+    public static boolean h;
+
+    public static boolean n;
     public static boolean spacePressed;
     public static boolean shift;
 
@@ -69,12 +75,40 @@ public class MainVariables {
                     if (!d)
                         d = true;
                     break;
+                case 't':
+                case 'T':
+                case 'е':
+                case 'Е':
+                    if (!t)
+                        t = true;
+                    break;
+                case 'f':
+                case 'F':
+                case 'а':
+                case 'А':
+                    if (!f)
+                        f = true;
+                    break;
+                case 'g':
+                case 'G':
+                case 'п':
+                case 'П':
+                    if (!g)
+                        g = true;
+                    break;
+                case 'h':
+                case 'H':
+                case 'р':
+                case 'Р':
+                    if (!h)
+                        h = true;
+                    break;
                 case 'n':
                 case 'N':
                 case 'т':
                 case 'Т':
-                    if (!t)
-                        t = true;
+                    if (!n)
+                        n = true;
                     break;
                 case ' ':
                     if (!spacePressed)
@@ -89,7 +123,7 @@ public class MainVariables {
                 case 'ш':
                 case 'Ш':
                     space.camera.rx = 0;
-                    space.camera.rz = 0;
+                    space.camera.ry = 0;
                     break;
                 default:
                     System.out.println(e.getKeyChar());
@@ -128,12 +162,40 @@ public class MainVariables {
                     if (d)
                         d = false;
                     break;
+                case 't':
+                case 'T':
+                case 'е':
+                case 'Е':
+                    if (t)
+                        t = false;
+                    break;
+                case 'f':
+                case 'F':
+                case 'а':
+                case 'А':
+                    if (f)
+                        f = false;
+                    break;
+                case 'g':
+                case 'G':
+                case 'п':
+                case 'П':
+                    if (g)
+                        g = false;
+                    break;
+                case 'h':
+                case 'H':
+                case 'р':
+                case 'Р':
+                    if (h)
+                        h = false;
+                    break;
                 case 'n':
                 case 'N':
                 case 'т':
                 case 'Т':
-                    if (t)
-                        t = false;
+                    if (n)
+                        n = false;
                     break;
                 case ' ':
                     if (spacePressed)
@@ -184,14 +246,14 @@ public class MainVariables {
             double dy = e.getY() - mouseLocation.y;
             mouseLocation = e.getPoint();
 
-            space.camera.rz += dx/300;
+            space.camera.ry += dx/300;
             space.camera.rx += dy/300;
-            System.out.println(space.camera.rz + " " + space.camera.rx);
+            System.out.println(space.camera.ry + " " + space.camera.rx);
 
-            if (space.camera.rz >= R(360)) {
-                space.camera.rz -= R(360);
-            } else if (space.camera.rz <= -R(360)) {
-                space.camera.rz += R(360);
+            if (space.camera.ry >= R(360)) {
+                space.camera.ry -= R(360);
+            } else if (space.camera.ry <= -R(360)) {
+                space.camera.ry += R(360);
             }
         }
 

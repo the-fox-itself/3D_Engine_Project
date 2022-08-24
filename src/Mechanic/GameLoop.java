@@ -38,24 +38,30 @@ public class GameLoop extends Thread {
     }
 
     public void handleInput() {
-        if (a && !d) {
+        if (a && !d)
             space.camera.x -= 0.02;
-        } else if (d && !a) {
+        else if (d && !a)
             space.camera.x += 0.02;
-        }
-        if (w && !s) {
-            space.camera.y += 0.02;
-        } else if (s && !w) {
-            space.camera.y -= 0.02;
-        }
-        if (t) {
-            space.listOfPoints.add(space.camera.x+":"+space.camera.y+":"+space.camera.z);
-        }
-        if (spacePressed && !shift) {
-            space.camera.z -= 0.02;
-        } else if (shift && !spacePressed) {
+        if (w && !s)
             space.camera.z += 0.02;
-        }
+        else if (s && !w)
+            space.camera.z -= 0.02;
+
+        if (f && !h)
+            space.camera.ry += 0.01;
+        else if (h && !f)
+            space.camera.ry -= 0.01;
+        if (t && !g)
+            space.camera.rx -= 0.01;
+        else if (g && !t)
+            space.camera.rx += 0.01;
+
+        if (n)
+            space.listOfPoints.add(space.camera.x+":"+space.camera.y+":"+space.camera.z);
+        if (spacePressed && !shift)
+            space.camera.y -= 0.02;
+        else if (shift && !spacePressed)
+            space.camera.y += 0.02;
     }
     public void updateGameStats() {
 //        if (System.nanoTime() - lastGameStatsUpdate > 1000000) {

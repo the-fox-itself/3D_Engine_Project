@@ -69,43 +69,77 @@ public class Space extends JPanel {
         double ry = camera.ry;
         double rz = camera.rz;
 
+        int screenWidth = frame.getWidth();
+        int screenHeight = frame.getHeight();
+        double sensorWidth = 1;
+        double sensorHeight = 1;
+
+        double focalLength = 1;
+        int skew = 1;
+
         for (String point : listOfPoints) {
             String[] coordinates = point.split(":");
             double px = Double.parseDouble(coordinates[0]);
             double py = Double.parseDouble(coordinates[1]);
             double pz = Double.parseDouble(coordinates[2]);
 
-            if (py-cy > 0) {
-                double a = Math.atan((px - cx) / (py - cy));
-                boolean a1Initialize = false;
-                double a1 = 0;
+            double px1 = px - cx;
+            double py1 = py - cy;
+            double pz1 = pz - cz;
 
-                if (rz >= a - R(90) && rz <= a + R(90)) {
-                    a1Initialize = true;
-                    a1 = rz - a;
-                } else if (rz >= a - R(450) && rz <= a - R(270)) {
-                    a1Initialize = true;
-                    a1 = rz + R(360) - a;
-                } else if (rz >= a + R(270) && rz <= a + R(360)) {
-                    a1Initialize = true;
-                    a1 = rz - R(360) - a;
-                }
+            double px2 = px1*Math.cos(rz) + py1*(-Math.sin(rz));
+            double py2 = px1*Math.sin(rz) + py1*Math.cos(rz);
+            double pz2 = pz1;
 
-                double b = Math.atan((pz - cz) / (Math.sqrt(Math.pow(px - cx, 2) + Math.pow(py - cy, 2))));
-                boolean b1Initialize = false;
-                double b1 = 0;
+            double px3 = px2*Math.cos(ry) + py2*Math.sin(ry);
+            double py3 = py2;
+            double pz3 = px2*(-Math.sin(ry)) + py2*Math.cos(ry) + pz2;
 
-//            if () {
+            double px4 = px3;
+            double py4 = py3*Math.cos(rx) + pz3*(-Math.sin(rx));
+            double pz4 = py3*Math.sin(rx) + pz3*Math.cos(rx);
+
+            double px5 = px4*((focalLength*screenWidth)/(2*sensorWidth)) + py4*skew;
+            double py5 = py4*((focalLength*screenHeight)/(2*sensorHeight));
+            double pz5 = -py4 + pz4;
+
+            double finalX = px5/pz5;
+            double finalY = py5/pz5;
+
+            if (pz5 > 0)
+                g.fillOval(frame.getWidth() / 2 + (int)(finalX)-4, frame.getHeight() / 2 + (int)(finalY)-4, 8, 8);
+
+//            if (py-cy > 0) {
+//                double a = Math.atan((px - cx) / (py - cy));
+//                boolean a1Initialize = false;
+//                double a1 = 0;
 //
+//                if (rz >= a - R(90) && rz <= a + R(90)) {
+//                    a1Initialize = true;
+//                    a1 = rz - a;
+//                } else if (rz >= a - R(450) && rz <= a - R(270)) {
+//                    a1Initialize = true;
+//                    a1 = rz + R(360) - a;
+//                } else if (rz >= a + R(270) && rz <= a + R(360)) {
+//                    a1Initialize = true;
+//                    a1 = rz - R(360) - a;
+//                }
+//
+//                double b = Math.atan((pz - cz) / (Math.sqrt(Math.pow(px - cx, 2) + Math.pow(py - cy, 2))));
+//                boolean b1Initialize = false;
+//                double b1 = 0;
+//
+////            if () {
+////
+////            }
+//
+//
+//                int pyScreen = (int) ((Math.atan((pz - cz) / (py - cy))) * frame.getHeight() / R(90));
+//                if (a1Initialize) {
+//                    int pxScreen = (int) (a1 * frame.getWidth() / R(90));     //30 for human eye
+//                    g.fillOval(frame.getWidth() / 2 - 4 + pxScreen, frame.getHeight() / 2 - 4 + pyScreen, 8, 8);
+//                }
 //            }
-
-
-                int pyScreen = (int) ((Math.atan((pz - cz) / (py - cy))) * frame.getHeight() / R(90));
-                if (a1Initialize) {
-                    int pxScreen = (int) (a1 * frame.getWidth() / R(90));     //30 for human eye
-                    g.fillOval(frame.getWidth() / 2 - 4 + pxScreen, frame.getHeight() / 2 - 4 + pyScreen, 8, 8);
-                }
-            }
         }
     }
 }

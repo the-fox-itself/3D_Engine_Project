@@ -23,14 +23,14 @@ public class Mechanic {
 
 //        space = new Space(new Plane(3.5, 1, 0));
         space = new Space(new Camera(0, 0, 0));
-        space.listOfPoints.add("2:2:-2");
-        space.listOfPoints.add("-2:2:-2");
         space.listOfPoints.add("2:2:2");
         space.listOfPoints.add("-2:2:2");
-        space.listOfPoints.add("2:4:-2");
-        space.listOfPoints.add("-2:4:-2");
-        space.listOfPoints.add("2:4:2");
-        space.listOfPoints.add("-2:4:2");
+        space.listOfPoints.add("2:2:6");
+        space.listOfPoints.add("-2:2:6");
+        space.listOfPoints.add("2:-2:2");
+        space.listOfPoints.add("-2:-2:2");
+        space.listOfPoints.add("2:-2:6");
+        space.listOfPoints.add("-2:-2:6");
 
         frame.add(space);
         space.setBounds(0, 0, (int) Math.pow(10, 6), (int) Math.pow(10, 6));
